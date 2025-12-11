@@ -120,6 +120,18 @@ exports.handler = async (event, context) => {
 
     // Exchange authorization code for tokens
     console.log('🔄 Exchanging authorization code for tokens...');
+    console.log('📋 Debug Info:', {
+      tokenUrl: 'https://oauth.acreplatforms.net/oauth2/token',
+      client_id: clientId,
+      client_id_length: clientId?.length,
+      client_secret_length: clientSecret?.length,
+      client_secret_starts: clientSecret?.substring(0, 5) + '...',
+      api_key: apiKey,
+      api_key_length: apiKey?.length,
+      redirect_uri: redirectUri,
+      code_length: code?.length,
+      grant_type: 'authorization_code'
+    });
 
     const tokenUrl = 'https://oauth.acreplatforms.net/oauth2/token';
 
@@ -132,6 +144,8 @@ exports.handler = async (event, context) => {
       client_secret: clientSecret,
       redirect_uri: redirectUri
     });
+
+    console.log('📤 Request body:', tokenParams.toString().replace(clientSecret, 'REDACTED'));
 
     const tokenResponse = await fetch(tokenUrl, {
       method: 'POST',

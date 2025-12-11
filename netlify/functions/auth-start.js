@@ -5,8 +5,6 @@
  * Visit this URL in your browser to begin: https://acre-test.netlify.app/auth-start
  */
 
-const crypto = require('crypto');
-
 exports.handler = async (event, context) => {
   try {
     console.log('🚀 OAuth flow initiated');
@@ -42,8 +40,9 @@ exports.handler = async (event, context) => {
       };
     }
 
-    // Generate state parameter for CSRF protection
-    const state = crypto.randomBytes(32).toString('hex');
+    // Use fixed state parameter as required by Acre documentation
+    // Acre requires using the scope value as the state parameter
+    const state = scope || 'ABCDEFGHIJKLMNOP';
 
     // Store state in cookie (will be validated in callback)
     const stateCookie = `oauth_state=${state}; HttpOnly; Secure; SameSite=Lax; Max-Age=600; Path=/`;
@@ -60,7 +59,7 @@ exports.handler = async (event, context) => {
       client_id: clientId,
       redirect_uri: redirectUri,
       scope: scope || '(empty)',
-      state: state.substring(0, 8) + '...'
+      state: state
     });
 
     // Redirect user to Acre login page

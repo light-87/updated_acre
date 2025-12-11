@@ -65,9 +65,9 @@ exports.handler = async (event, context) => {
       ?.split('=')[1];
 
     if (!stateCookie || stateCookie !== state) {
-      console.error('❌ State mismatch - possible CSRF attack', {
-        expected: stateCookie?.substring(0, 8) + '...',
-        received: state?.substring(0, 8) + '...'
+      console.error('❌ State mismatch', {
+        expected: stateCookie,
+        received: state
       });
       return {
         statusCode: 403,

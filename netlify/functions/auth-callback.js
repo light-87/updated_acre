@@ -210,7 +210,12 @@ exports.handler = async (event, context) => {
     console.log('💾 Storing tokens in Netlify Blobs...');
 
     try {
-      const store = getStore('acre-tokens');
+      // Configure Blobs store with environment variables
+      const store = getStore({
+        name: 'acre-tokens',
+        siteID: process.env.site_id_real || process.env.NETLIFY_SITE_ID,
+        token: process.env.NETLIFY_AUTH_TOKEN
+      });
       await store.set('tokens', JSON.stringify(tokenStorage), {
         metadata: {
           created_at: createdAt,

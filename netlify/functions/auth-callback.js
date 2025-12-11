@@ -123,19 +123,19 @@ exports.handler = async (event, context) => {
 
     const tokenUrl = 'https://oauth.acreplatforms.net/oauth2/token';
 
-    // Create Basic Auth header (client_id:client_secret encoded in base64)
-    const basicAuth = Buffer.from(`${clientId}:${clientSecret}`).toString('base64');
-
+    // Acre requires 'client_secret_post' authentication method
+    // (client_id and client_secret in POST body, not Basic Auth)
     const tokenParams = new URLSearchParams({
       grant_type: 'authorization_code',
       code: code,
+      client_id: clientId,
+      client_secret: clientSecret,
       redirect_uri: redirectUri
     });
 
     const tokenResponse = await fetch(tokenUrl, {
       method: 'POST',
       headers: {
-        'Authorization': `Basic ${basicAuth}`,
         'X-API-KEY': apiKey,
         'Content-Type': 'application/x-www-form-urlencoded',
         'Accept': 'application/json'

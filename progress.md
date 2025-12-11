@@ -171,8 +171,8 @@ updated_acre/
 - **ACRE_SCOPE** - `ABCDEFGHIJKLMNOP`
 
 ### OAuth Endpoints
-- **Authorization:** `https://oauth.acreplatforms.co.uk/oauth2/auth`
-- **Token Exchange:** `https://oauth.acreplatforms.co.uk/oauth2/token`
+- **Authorization:** `https://oauth.acreplatforms.net/oauth2/auth`
+- **Token Exchange:** `https://oauth.acreplatforms.net/oauth2/token`
 - **API Base:** `https://api.myac.re/v1/acre/`
 
 ---

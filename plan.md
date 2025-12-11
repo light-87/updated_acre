@@ -97,7 +97,7 @@ netlify/functions/auth-callback.js
    - Handle error if missing
 
 3. **Exchange Code for Tokens**
-   - POST to: `https://oauth.acreplatforms.co.uk/oauth2/token`
+   - POST to: `https://oauth.acreplatforms.net/oauth2/token`
    - Headers:
      - `X-API-KEY: ACRE_API_KEY`
      - `Content-Type: application/x-www-form-urlencoded`
@@ -231,7 +231,7 @@ netlify/functions/get-token.js (add refresh logic)
    - If expired → trigger refresh
 
 2. **Refresh Access Token**
-   - POST to: `https://oauth.acreplatforms.co.uk/oauth2/token`
+   - POST to: `https://oauth.acreplatforms.net/oauth2/token`
    - Headers:
      - `X-API-KEY: ACRE_API_KEY`
      - `Content-Type: application/x-www-form-urlencoded`
@@ -427,8 +427,8 @@ netlify/functions/get-token.js (add refresh logic)
 - `GET /get-token` - Get valid access token (Phase 3-4)
 
 **Acre OAuth:**
-- `GET https://oauth.acreplatforms.co.uk/oauth2/auth` - Authorization
-- `POST https://oauth.acreplatforms.co.uk/oauth2/token` - Token exchange/refresh
+- `GET https://oauth.acreplatforms.net/oauth2/auth` - Authorization
+- `POST https://oauth.acreplatforms.net/oauth2/token` - Token exchange/refresh
 
 **Acre API:**
 - `GET https://api.myac.re/v1/acre/case` - Get cases

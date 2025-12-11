@@ -122,17 +122,20 @@ exports.handler = async (event, context) => {
     console.log('🔄 Exchanging authorization code for tokens...');
 
     const tokenUrl = 'https://oauth.acreplatforms.net/oauth2/token';
+
+    // Create Basic Auth header (client_id:client_secret encoded in base64)
+    const basicAuth = Buffer.from(`${clientId}:${clientSecret}`).toString('base64');
+
     const tokenParams = new URLSearchParams({
       grant_type: 'authorization_code',
       code: code,
-      client_id: clientId,
-      client_secret: clientSecret,
       redirect_uri: redirectUri
     });
 
     const tokenResponse = await fetch(tokenUrl, {
       method: 'POST',
       headers: {
+        'Authorization': `Basic ${basicAuth}`,
         'X-API-KEY': apiKey,
         'Content-Type': 'application/x-www-form-urlencoded',
         'Accept': 'application/json'

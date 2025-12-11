@@ -41,8 +41,8 @@ exports.handler = async (event, context) => {
     }
 
     // Use fixed state parameter as required by Acre documentation
-    // Acre requires using the scope value as the state parameter
-    const state = scope || 'ABCDEFGHIJKLMNOP';
+    // Acre requires STATE to be exactly: ABCDEFGHIJKLMNOP
+    const state = 'ABCDEFGHIJKLMNOP';
 
     // Store state in cookie (will be validated in callback)
     const stateCookie = `oauth_state=${state}; HttpOnly; Secure; SameSite=Lax; Max-Age=600; Path=/`;

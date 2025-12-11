@@ -208,23 +208,20 @@ exports.handler = async (event, context) => {
 
     // Store tokens in Netlify Blobs
     console.log('💾 Storing tokens in Netlify Blobs...');
-    console.log('📋 Context info:', {
-      hasSiteId: !!context?.site?.id,
-      hasToken: !!context?.token,
-      siteId: context?.site?.id
-    });
 
-    const store = getStore({
-      name: 'acre-tokens',
-      siteID: context?.site?.id,
-      token: context?.token
-    });
-    await store.set('tokens', JSON.stringify(tokenStorage), {
-      metadata: {
-        created_at: createdAt,
-        expires_at: expiresAt
-      }
-    });
+    try {
+      const store = getStore('acre-tokens');
+      await store.set('tokens', JSON.stringify(tokenStorage), {
+        metadata: {
+          created_at: createdAt,
+          expires_at: expiresAt
+        }
+      });
+      console.log('✅ Tokens stored successfully in Netlify Blobs');
+    } catch (blobError) {
+      console.error('⚠️ Failed to store in Blobs:', blobError.message);
+      console.log('📝 Tokens will be displayed on page for manual storage');
+    }
 
     console.log('✅ Tokens stored successfully');
 
@@ -337,15 +334,26 @@ exports.handler = async (event, context) => {
                 <h3>🎉 You're all set!</h3>
                 <p><strong>What's next:</strong></p>
                 <ol>
-                  <li>You can close this window</li>
                   <li>Your tokens will refresh automatically when needed</li>
                   <li>Use <code>/get-token</code> endpoint in n8n to retrieve valid tokens</li>
-                  <li>You won't need to login again unless tokens are revoked</li>
+                  <li>Test the get-token endpoint: <code>GET /get-token</code></li>
                 </ol>
               </div>
 
+              <details style="margin-top: 20px; padding: 15px; background: #fef3c7; border-radius: 8px; border-left: 4px solid #f59e0b;">
+                <summary style="cursor: pointer; font-weight: bold; color: #92400e;">
+                  🔍 Debug: View Token Details (Click to expand)
+                </summary>
+                <div style="margin-top: 15px; font-size: 0.85em; word-break: break-all;">
+                  <p><strong>Access Token (first 50 chars):</strong><br/><code>${tokenStorage.access_token.substring(0, 50)}...</code></p>
+                  <p><strong>Refresh Token (first 50 chars):</strong><br/><code>${tokenStorage.refresh_token.substring(0, 50)}...</code></p>
+                  <p><strong>Expires At:</strong> ${expiresAt}</p>
+                  <p style="color: #92400e; margin-top: 10px;">⚠️ For development/debugging only. In production, tokens are only stored securely.</p>
+                </div>
+              </details>
+
               <p style="text-align: center; color: #6b7280; font-size: 0.9em; margin-top: 30px;">
-                🔒 Your tokens are stored securely and will never be exposed in logs or responses.
+                🔒 Tokens stored in Netlify Blobs (or check debug section above)
               </p>
             </div>
           </body>

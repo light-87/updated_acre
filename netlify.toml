@@ -1,0 +1,21 @@
+[build]
+  functions = "netlify/functions"
+
+[functions]
+  node_bundler = "esbuild"
+
+# Friendly URL redirects (removes /.netlify/functions/ from URLs)
+[[redirects]]
+  from = "/auth-start"
+  to = "/.netlify/functions/auth-start"
+  status = 200
+
+[[redirects]]
+  from = "/auth-callback"
+  to = "/.netlify/functions/auth-callback"
+  status = 200
+
+[[redirects]]
+  from = "/get-token"
+  to = "/.netlify/functions/get-token"
+  status = 200

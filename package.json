@@ -1,0 +1,21 @@
+{
+  "name": "acre-oauth-backend",
+  "version": "1.0.0",
+  "description": "OAuth backend for Acre API integration",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"No tests yet\""
+  },
+  "dependencies": {
+    "@netlify/blobs": "^7.0.0",
+    "@netlify/functions": "^2.0.0"
+  },
+  "keywords": [
+    "oauth",
+    "acre",
+    "netlify",
+    "serverless"
+  ],
+  "author": "",
+  "license": "ISC"
+}

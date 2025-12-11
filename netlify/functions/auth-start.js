@@ -49,7 +49,7 @@ exports.handler = async (event, context) => {
     const stateCookie = `oauth_state=${state}; HttpOnly; Secure; SameSite=Lax; Max-Age=600; Path=/`;
 
     // Build authorization URL
-    const authUrl = new URL('https://oauth.acreplatforms.co.uk/oauth2/auth');
+    const authUrl = new URL('https://oauth.acreplatforms.net/oauth2/auth');
     authUrl.searchParams.append('response_type', 'code');
     authUrl.searchParams.append('client_id', clientId);
     authUrl.searchParams.append('redirect_uri', redirectUri);
